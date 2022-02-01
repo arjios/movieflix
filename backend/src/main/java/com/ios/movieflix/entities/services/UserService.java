@@ -6,12 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ios.movieflix.entities.Review;
+import com.ios.movieflix.entities.Role;
 import com.ios.movieflix.entities.User;
+import com.ios.movieflix.entities.dto.ReviewDTO;
+import com.ios.movieflix.entities.dto.RoleDTO;
 import com.ios.movieflix.entities.dto.UserDTO;
+import com.ios.movieflix.entities.dto.UserInsertDTO;
 import com.ios.movieflix.entities.services.exceptions.ResourceNotFoundException;
+import com.ios.movieflix.repositories.ReviewRepository;
+import com.ios.movieflix.repositories.RoleRepository;
 import com.ios.movieflix.repositories.UserRepository;
 
 @Service
@@ -19,6 +27,15 @@ public class UserService {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
@@ -34,9 +51,10 @@ public class UserService {
 	}
 	
 	@Transactional
-	public UserDTO insert(UserDTO dto) {
+	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto, entity);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 	}
@@ -55,6 +73,15 @@ public class UserService {
 	private void copyDtoToEntity(UserDTO dto, User entity) {
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
+		entity.getRoles().clear();
+		for(RoleDTO roleDTO : dto.getRoles()) {
+			Role role = roleRepository.getById(roleDTO.getId());
+			entity.getRoles().add(role);
+		}
+		for(ReviewDTO reviewDTO : dto.getReviews()) {
+			Review review = reviewRepository.getById(reviewDTO.getId());
+			entity.getReviews().add(review);
+		}
 	}
 	
 	
