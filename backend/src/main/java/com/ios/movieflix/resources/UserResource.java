@@ -2,6 +2,8 @@ package com.ios.movieflix.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +42,7 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insertUser(@RequestBody UserInsertDTO dto) {
+	public ResponseEntity<UserDTO> insertUser(@Valid @RequestBody UserInsertDTO dto) {
 		UserDTO userDTO = userService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(userDTO.getId()).toUri();
@@ -48,7 +50,7 @@ public class UserResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable long id, @RequestBody UserDTO dto) {
+	public ResponseEntity<UserDTO> update(@PathVariable long id, @Valid @RequestBody UserDTO dto) {
 		dto = userService.update(id, dto);
 		return ResponseEntity.ok().body(dto);	
 	}

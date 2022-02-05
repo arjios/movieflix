@@ -2,6 +2,7 @@ INSERT INTO tb_user (name, email, password) VALUES ('Bob', 'bob@gmail.com', '$2a
 INSERT INTO tb_user (name, email, password) VALUES ('Ana', 'ana@gmail.com', '$2a$12$NUG7oPxu7T7z1iya/Pmp7.c8MVfQ2imgw8hqPryclxZfqKuWxHJwG')
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_VISITOR')
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1)

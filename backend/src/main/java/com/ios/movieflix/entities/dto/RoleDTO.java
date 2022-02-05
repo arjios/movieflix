@@ -2,12 +2,15 @@ package com.ios.movieflix.entities.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 import com.ios.movieflix.entities.Role;
 
 public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank
 	private String authority;
 	
 	public RoleDTO() {
