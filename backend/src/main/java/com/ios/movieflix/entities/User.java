@@ -1,6 +1,7 @@
 package com.ios.movieflix.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +34,12 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updatedAt;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="tb_user_role",
 				joinColumns = @JoinColumn(name="user_id"),
@@ -43,7 +52,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password) {
+	public User(Long id, String name, String email, String password, String creator) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -89,6 +98,25 @@ public class User implements Serializable {
 	public List<Review> getReviews() {
 		return reviews;
 	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	@PrePersist
+	public void setCreatedAt() {
+		createdAt = Instant.now();
+	}
+
+	@PreUpdate
+	public void setUpdatedAt() {
+		updatedAt = Instant.now();
+	}
+
 
 	@Override
 	public int hashCode() {
