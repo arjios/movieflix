@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.ios.movieflix.entities.User;
 
@@ -15,8 +17,11 @@ public class UserDTO implements Serializable {
 	private Long id;
 	
 	@NotBlank(message = "Campo obrigatório")
+	@Size(min=2, max=80, message="Inserir um nome com 2 ou até 80 caracteres.")
 	private String name;
+	
 	@NotBlank
+	@Column(unique = true)
 	@Email(message = "Email invalido")
 	private String email;
 	

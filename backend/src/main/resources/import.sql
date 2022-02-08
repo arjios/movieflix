@@ -4,6 +4,7 @@ INSERT INTO tb_user (name, email, password, created_At) VALUES ('Ana', 'ana@gmai
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
 INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_VISITOR')
+INSERT INTO tb_role (authority) VALUES ('ROLE_MEMBER')
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1)
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2)
@@ -31,9 +32,9 @@ INSERT INTO tb_movie(title, sub_title, year, img_Url, synopsis, genre_id) VALUES
 INSERT INTO tb_movie(title, sub_title, year, img_Url, synopsis, genre_id) VALUES ('Clube da Luta', 'Clube da Luta', 1999, 'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hZkgoQYus5vegHoetLkCJzb17zJ.jpg', 'Jack (Edward Norton) é um executivo jovem, trabalha como investigador de seguros, mora confortavelmente, mas ele está ficando cada vez mais insatisfeito com sua vida medíocre. Para piorar ele está enfrentando uma terrível crise de insônia, até que encontra uma cura inusitada para o sua falta de sono ao frequentar grupos de auto-ajuda. Nesses encontros ele passa a conviver com pessoas problemáticas como a viciada Marla Singer (Helena Bonham Carter) e a conhecer estranhos como Tyler Durden (Brad Pitt). Misterioso e cheio de ideias, Tyler apresenta para Jack um grupo secreto que se encontra para extravasar suas angústias e tensões através de violentos combates corporais.', 1)
 
 
-INSERT INTO tb_review (text, movie_id, user_id) VALUES ('Bom', 1, 2)
-INSERT INTO tb_review (text, movie_id, user_id) VALUES ('Otimo', 1, 2)
-INSERT INTO tb_review (text, movie_id, user_id) VALUES ('Bom', 2, 2)
-INSERT INTO tb_review (text, movie_id, user_id) VALUES ('Bom', 10, 2)
-INSERT INTO tb_review (text, movie_id, user_id) VALUES ('Otimo', 11, 2)
+INSERT INTO tb_review (text, movie_id, user_id, created_At) VALUES ('Bom', 1, 2, NOW())
+INSERT INTO tb_review (text, movie_id, user_id, created_At) VALUES ('Otimo', 1, 2, NOW())
+INSERT INTO tb_review (text, movie_id, user_id, created_At) VALUES ('Bom', 2, 2, NOW())
+INSERT INTO tb_review (text, movie_id, user_id, created_At) VALUES ('Bom', 10, 2, NOW())
+INSERT INTO tb_review (text, movie_id, user_id, created_At) VALUES ('Otimo', 11, 2, NOW())
 

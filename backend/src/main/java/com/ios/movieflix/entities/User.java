@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="tb_user")
@@ -29,9 +32,16 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Size(min=2, max=80, message="Inserir um nome com 2 ou até 80 caracteres.")
 	private String name;
+
+	@Email
 	@Column(unique = true)
 	private String email;
+	
+	@NotBlank
+	@Size(min=5, message="A senha deve ter no minimo 5 caracteres.")
 	private String password;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")

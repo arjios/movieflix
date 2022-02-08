@@ -4,10 +4,12 @@ import java.time.Instant;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +33,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(DatabaseException.class)
-	public ResponseEntity<StandardError> resourceNotFound(DatabaseException e, HttpServletRequest r) {
+	public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest r) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
@@ -43,38 +45,51 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> resourceNotFound(MethodArgumentNotValidException e, HttpServletRequest r) {
+	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest r) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-		StandardError err = new StandardError();
+		ValidationError err = new ValidationError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("Validation Exception");
+		err.setMessage(e.getMessage());
+		err.setPath(r.getRequestURI());
+		for(FieldError f:e.getBindingResult().getFieldErrors()) {
+			err.addError(f.getField(), f.getDefaultMessage());
+		}
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<ValidationError> constraint(ConstraintViolationException e, HttpServletRequest r) {
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+		ValidationError err = new ValidationError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Constraint Violation Exception");
 		err.setMessage(e.getMessage());
 		err.setPath(r.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<StandardError> resourceNotFound(EmptyResultDataAccessException e, HttpServletRequest r) {
+	public ResponseEntity<StandardError> emptyData(EmptyResultDataAccessException e, HttpServletRequest r) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("Validation Exception");
 		err.setMessage(e.getMessage());
-		err.setMessage(e.getMessage());
 		err.setPath(r.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<StandardError> resourceNotFound(NoSuchElementException e, HttpServletRequest r) {
+	public ResponseEntity<StandardError> noElement(NoSuchElementException e, HttpServletRequest r) {
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("No value present");
-		err.setMessage(e.getMessage());
 		err.setMessage(e.getMessage());
 		err.setPath(r.getRequestURI());
 		return ResponseEntity.status(status).body(err);

@@ -1,13 +1,18 @@
 package com.ios.movieflix.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -20,11 +25,17 @@ public class Review implements Serializable {
 	private Long id;
 	private String text;
 	
-	@ManyToOne
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updatedAt;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "movie_id")
 	private Movie movie;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
@@ -50,6 +61,32 @@ public class Review implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@PrePersist
+	public void getCreatedAt() {
+		createdAt = Instant.now();
+	}
+
+	@PreUpdate
+	public void getUpdatedAt() {
+		updatedAt = Instant.now();
 	}
 
 	@Override
