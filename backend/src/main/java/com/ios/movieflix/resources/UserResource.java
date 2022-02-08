@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ios.movieflix.entities.dto.UserDTO;
 import com.ios.movieflix.entities.dto.UserInsertDTO;
+import com.ios.movieflix.entities.dto.UserUpdateDTO;
 import com.ios.movieflix.entities.services.UserService;
 
 @Controller
@@ -50,9 +51,9 @@ public class UserResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable long id, @Valid @RequestBody UserDTO dto) {
-		dto = userService.update(id, dto);
-		return ResponseEntity.ok().body(dto);	
+	public ResponseEntity<UserDTO> update(@PathVariable long id, @Valid @RequestBody UserUpdateDTO dto) {
+		UserDTO newDTO = userService.update(id, dto);
+		return ResponseEntity.ok().body(newDTO);	
 	}
 	
 	@DeleteMapping(value="/{id}")

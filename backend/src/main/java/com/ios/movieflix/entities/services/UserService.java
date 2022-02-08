@@ -17,6 +17,7 @@ import com.ios.movieflix.entities.dto.ReviewDTO;
 import com.ios.movieflix.entities.dto.RoleDTO;
 import com.ios.movieflix.entities.dto.UserDTO;
 import com.ios.movieflix.entities.dto.UserInsertDTO;
+import com.ios.movieflix.entities.dto.UserUpdateDTO;
 import com.ios.movieflix.entities.services.exceptions.ResourceNotFoundException;
 import com.ios.movieflix.repositories.ReviewRepository;
 import com.ios.movieflix.repositories.RoleRepository;
@@ -60,7 +61,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {	
+	public UserDTO update(Long id, UserUpdateDTO dto) {	
 		User entity = repository.findById(id).get();
 		copyDtoToEntity(dto, entity);
 		return dto;
