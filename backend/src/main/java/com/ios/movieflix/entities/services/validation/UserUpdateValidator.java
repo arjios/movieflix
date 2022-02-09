@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.ios.movieflix.entities.User;
-import com.ios.movieflix.entities.dto.UserInsertDTO;
 import com.ios.movieflix.entities.dto.UserUpdateDTO;
 import com.ios.movieflix.repositories.UserRepository;
 import com.ios.movieflix.resources.exceptions.FieldMessage;

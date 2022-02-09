@@ -1,5 +1,6 @@
 package com.ios.movieflix.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,7 +8,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
+@SuppressWarnings("deprecation")
 public class AppConfig {
+	
+	@Value("${jwt.secret}")
+	private String jwtSecret;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -15,15 +20,13 @@ public class AppConfig {
 	}
 	
 	@Bean
-	@SuppressWarnings("deprecation")
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey("MY-JWT-SECRET");
+		tokenConverter.setSigningKey(jwtSecret);
 		return tokenConverter;
 	}
 	
 	@Bean
-	@SuppressWarnings("deprecation")
 	public JwtTokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
