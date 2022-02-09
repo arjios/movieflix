@@ -3,9 +3,13 @@ package com.ios.movieflix.entities.services;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +28,9 @@ import com.ios.movieflix.repositories.RoleRepository;
 import com.ios.movieflix.repositories.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService  {
+
+	private static Logger logger = org.slf4j.LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository repository;
@@ -83,6 +89,16 @@ public class UserService {
 			Review review = reviewRepository.getById(reviewDTO.getId());
 			entity.getReviews().add(review);
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = repository.findByEmail(username);
+		if(user == null) {
+			logger.error("Usuario não existe: " + username);
+			throw new UsernameNotFoundException("Usuario não existe");
+		}
+		return user;
 	}
 	
 	
