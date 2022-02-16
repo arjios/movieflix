@@ -1,14 +1,19 @@
-INSERT INTO tb_user (name, email, password, created_At) VALUES ('Bob', 'bob@gmail.com', '$2a$12$6UXYXC8mhQh6cP8TCezVM.AUzNsS93qQ8/jl9oB4j7eCaudxnvT2S', NOW())
-INSERT INTO tb_user (name, email, password, created_At) VALUES ('Ana', 'ana@gmail.com', '$2a$12$NUG7oPxu7T7z1iya/Pmp7.c8MVfQ2imgw8hqPryclxZfqKuWxHJwG', NOW())
+INSERT INTO tb_user (name, email, password, created_At) VALUES ('Bob', 'bob@gmail.com', '$2a$12$iJZJm3L0Copq.cmvLB59YObXCbjVOVTagZmSs7EgxC6w8rta79mM6', NOW())
+INSERT INTO tb_user (name, email, password, created_At) VALUES ('Ana', 'ana@gmail.com', '$2a$12$pYQO3OOOzddjb6C731q2fOAiks7DHtL9vQbnbWBVVY8oRHnzXLOi2', NOW())
+INSERT INTO tb_user (name, email, password, created_At) VALUES ('Maria', 'maria@gmail.com', '$2a$12$uOq2Ojf0mWw7N.lbnPLgHu7YQf9tbVQFjak009gnQMHg5WT7PP3IS', NOW())
+INSERT INTO tb_user (name, email, password, created_At) VALUES ('Alex', 'alex@gmail.com', '$2a$12$Omkcoxg6.LDEaPVB7H/VheLix6FFzorzw691Rh2Kvwt9nPI6UXLZ.', NOW())
 
-INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
-INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_VISITOR')
 INSERT INTO tb_role (authority) VALUES ('ROLE_MEMBER')
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN')
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR')
+
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1)
-INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1)
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2)
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3)
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 4)
+INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 4)
 
 INSERT INTO tb_genre (name) VALUES ('Ação')
 INSERT INTO tb_genre (name) VALUES ('Comédia')

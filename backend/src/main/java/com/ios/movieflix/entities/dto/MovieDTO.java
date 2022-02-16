@@ -40,6 +40,7 @@ public class MovieDTO implements Serializable {
 		year = entity.getYear();
 		imgUrl = entity.getImgUrl();
 		synopsis = entity.getSynopsis();
+		genres = new GenreDTO(entity.getGenre());
 	}
 
 	public Long getId() {
@@ -96,6 +97,10 @@ public class MovieDTO implements Serializable {
 
 	public GenreDTO getGenres() {
 		return genres;
+	}
+	
+	public Long getGenreId() {
+		return genres.getId();
 	}
 
 }

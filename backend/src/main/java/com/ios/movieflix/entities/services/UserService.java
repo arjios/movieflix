@@ -81,12 +81,13 @@ public class UserService implements UserDetailsService  {
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
 		entity.getRoles().clear();
+		entity.getReviews().clear();
 		for(RoleDTO roleDTO : dto.getRoles()) {
 			Role role = roleRepository.getById(roleDTO.getId());
 			entity.getRoles().add(role);
 		}
 		for(ReviewDTO reviewDTO : dto.getReviews()) {
-			Review review = reviewRepository.getById(reviewDTO.getId());
+			Review review = reviewRepository.findById(reviewDTO.getId()).get();
 			entity.getReviews().add(review);
 		}
 	}
