@@ -1,13 +1,13 @@
 package com.ios.movieflix.resources;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,30 +30,31 @@ public class MovieResource {
 	@Autowired
 	private MovieService movieService;
 	
-	@GetMapping(value="/genres")
-	public ResponseEntity<List<MovieDTO>> findByGenre(@RequestParam Long genreId) {	
-		List<MovieDTO> list = movieService.findByGenre(genreId);
-		return ResponseEntity.ok().body(list);
-	}
-	
 	@GetMapping
-	public ResponseEntity<Page<MovieDTO>> findAll(Pageable pageable) {
-		Page<MovieDTO> page = movieService.findAllPaged(pageable);
-		return ResponseEntity.ok().body(page);
+	public ResponseEntity<Page<MovieDTO>> findAll(
+			@RequestParam(value="genreId", required = false) Long id, 
+			@RequestParam(value="page", defaultValue = "0") Integer page,
+			@RequestParam(value="size", defaultValue = "12") Integer size,
+			@RequestParam(value="direction", defaultValue = "ASC") String direction,
+			@RequestParam(value="sort", defaultValue = "title") String title) {
+		
+		PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), title);
+		Page<MovieDTO> list = movieService.findMovieByGenreId(pageRequest, id);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<MovieDTO> findById(@PathVariable Long id) {
-		MovieDTO genreDTO = movieService.findById(id);
-		return ResponseEntity.ok().body(genreDTO);
+		MovieDTO movieDTO = movieService.findById(id);
+		return ResponseEntity.ok().body(movieDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<MovieDTO> insertMovie(@Valid @RequestBody MovieDTO dto) {
-		MovieDTO genreDTO = movieService.insert(dto);
+		MovieDTO movieDTO = movieService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(genreDTO.getId()).toUri();
-		return ResponseEntity.created(uri).body(genreDTO);	
+				.buildAndExpand(movieDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(movieDTO);	
 	}
 	
 	@PutMapping(value="/{id}")

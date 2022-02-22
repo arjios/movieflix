@@ -24,7 +24,7 @@ public class GenreService {
 	public List<GenreDTO> findAll() {
 		List<Genre> list = repository.findAll();
 		return list.stream().map(x -> new GenreDTO(x)).collect(Collectors.toList());
-	}	
+	}
 	
 	@Transactional(readOnly = true)
 	public GenreDTO findById(Long id) {
