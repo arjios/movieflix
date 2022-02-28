@@ -3,7 +3,6 @@ package com.ios.movieflix.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="tb_review")
@@ -23,6 +23,8 @@ public class Review implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	private String text;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -31,20 +33,26 @@ public class Review implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant updatedAt;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "movie_id")
 	private Movie movie;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public Review() {
 	}
 
-	public Review(Long id, String text) {
+	public Review(Long id, @NotBlank String text, 
+			Instant createdAt, Instant updatedAt, 
+			Movie movie, User user) {
 		this.id = id;
 		this.text = text;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.movie = movie;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -77,6 +85,14 @@ public class Review implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	@PrePersist

@@ -1,12 +1,11 @@
 package com.ios.movieflix.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ios.movieflix.entities.dto.ReviewDTO;
+import com.ios.movieflix.entities.dto.ReviewInsertDTO;
 import com.ios.movieflix.entities.services.ReviewService;
 
 @RestController
@@ -29,9 +29,9 @@ public class ReviewResource {
 	private ReviewService reviewService;
 	
 	@GetMapping
-	public ResponseEntity<Page<ReviewDTO>> findAll(Pageable pageable) {
-		Page<ReviewDTO> paged = reviewService.findAllPaged(pageable);
-		return ResponseEntity.ok(paged);
+	public ResponseEntity<List<ReviewDTO>> findAll() {
+		List<ReviewDTO> list = reviewService.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value="/{id}")
@@ -41,7 +41,7 @@ public class ReviewResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReviewDTO> insertReview(@Valid @RequestBody ReviewDTO dto) {
+	public ResponseEntity<ReviewDTO> insertReview(@RequestBody ReviewInsertDTO dto) {
 		ReviewDTO reviewDTO = reviewService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(reviewDTO.getId()).toUri();

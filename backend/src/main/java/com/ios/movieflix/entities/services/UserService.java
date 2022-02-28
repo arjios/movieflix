@@ -14,16 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ios.movieflix.entities.Review;
 import com.ios.movieflix.entities.Role;
 import com.ios.movieflix.entities.User;
-import com.ios.movieflix.entities.dto.ReviewDTO;
 import com.ios.movieflix.entities.dto.RoleDTO;
 import com.ios.movieflix.entities.dto.UserDTO;
 import com.ios.movieflix.entities.dto.UserInsertDTO;
-import com.ios.movieflix.entities.dto.UserUpdateDTO;
 import com.ios.movieflix.entities.services.exceptions.ResourceNotFoundException;
-import com.ios.movieflix.repositories.ReviewRepository;
 import com.ios.movieflix.repositories.RoleRepository;
 import com.ios.movieflix.repositories.UserRepository;
 
@@ -38,8 +34,8 @@ public class UserService implements UserDetailsService  {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@Autowired
-	private ReviewRepository reviewRepository;
+	// @Autowired
+	// private ReviewRepository reviewRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -67,7 +63,7 @@ public class UserService implements UserDetailsService  {
 	}
 	
 	@Transactional
-	public UserDTO update(Long id, UserUpdateDTO dto) {	
+	public UserDTO update(Long id, UserDTO dto) {	
 		User entity = repository.findById(id).get();
 		copyDtoToEntity(dto, entity);
 		return dto;
@@ -81,15 +77,15 @@ public class UserService implements UserDetailsService  {
 		entity.setName(dto.getName());
 		entity.setEmail(dto.getEmail());
 		entity.getRoles().clear();
-		entity.getReviews().clear();
+		//entity.getReviews().clear();
 		for(RoleDTO roleDTO : dto.getRoles()) {
 			Role role = roleRepository.getById(roleDTO.getId());
 			entity.getRoles().add(role);
 		}
-		for(ReviewDTO reviewDTO : dto.getReviews()) {
-			Review review = reviewRepository.findById(reviewDTO.getId()).get();
-			entity.getReviews().add(review);
-		}
+		//for(ReviewDTO reviewDTO : dto.getReviews()) {
+		//	Review review = reviewRepository.findById(reviewDTO.getId()).get();
+		//	entity.getReviews().add(review);
+		//}
 	}
 
 	@Override

@@ -1,10 +1,9 @@
 package com.ios.movieflix.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,23 +29,25 @@ public class Movie implements Serializable {
 	@Column(length = 1024)
 	private String synopsis;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "genre_id")
 	private Genre genre;
 	
 	@OneToMany(mappedBy = "movie")
-	Set<Review> reviews = new HashSet<>();
+	List<Review> reviews = new ArrayList<>();
 	
 	public Movie() {
 	}
 
-	public Movie(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis) {
+	public Movie(Long id, String title, String subTitle, Integer year, 
+			String imgUrl, String synopsis, Genre genre) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.year = year;
 		this.imgUrl = imgUrl;
 		this.synopsis = synopsis;
+		this.genre = genre;
 	}
 
 	public Long getId() {
@@ -101,7 +102,11 @@ public class Movie implements Serializable {
 		return genre;
 	}
 
-	public Set<Review> getReviews() {
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	public List<Review> getReviews() {
 		return reviews;
 	}
 

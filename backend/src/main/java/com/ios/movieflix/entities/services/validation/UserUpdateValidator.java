@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.ios.movieflix.entities.User;
-import com.ios.movieflix.entities.dto.UserUpdateDTO;
+import com.ios.movieflix.entities.dto.UserDTO;
 import com.ios.movieflix.repositories.UserRepository;
 import com.ios.movieflix.resources.exceptions.FieldMessage;
 
 
-public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDTO> {
+public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserDTO> {
 	
 	@Autowired
 	private HttpServletRequest request;
@@ -30,7 +30,7 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
 	}
 
 	@Override
-	public boolean isValid(UserUpdateDTO dto, ConstraintValidatorContext context) {
+	public boolean isValid(UserDTO dto, ConstraintValidatorContext context) {
 		
 		@SuppressWarnings("unchecked")
 		var uriVar = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);

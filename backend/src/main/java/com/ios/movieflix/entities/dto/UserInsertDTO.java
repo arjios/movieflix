@@ -1,12 +1,14 @@
 package com.ios.movieflix.entities.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.ios.movieflix.entities.services.validation.UserInsertValid;
 
 @UserInsertValid
-public class UserInsertDTO  extends UserDTO{
+public class UserInsertDTO extends UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@NotBlank

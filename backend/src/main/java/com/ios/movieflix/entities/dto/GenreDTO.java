@@ -1,8 +1,6 @@
 package com.ios.movieflix.entities.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.ios.movieflix.entities.Genre;
 
@@ -12,7 +10,7 @@ public class GenreDTO implements Serializable {
 	private Long id;
 	private String name;
 	
-	List<MovieDTO> movies = new ArrayList<>();
+//	List<MovieDTO> movies = new ArrayList<>();
 
 	public GenreDTO() {
 	}
@@ -43,7 +41,7 @@ public class GenreDTO implements Serializable {
 		this.name = name;
 	}
 
-	public List<MovieDTO> getMovies() {
-		return movies;
-	}
+//	public List<MovieDTO> getMovies() {
+//		return movies;
+//	}
 }

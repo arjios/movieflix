@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.ios.movieflix.entities.User;
 
-public class UserReviewDTO implements Serializable {
+public class UserReviewDTO extends UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
