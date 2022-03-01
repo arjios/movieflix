@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ios.movieflix.entities.dto.ReviewDTO;
-import com.ios.movieflix.entities.dto.ReviewInsertDTO;
 import com.ios.movieflix.entities.services.ReviewService;
 
 @RestController
@@ -41,7 +40,7 @@ public class ReviewResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReviewDTO> insertReview(@RequestBody ReviewInsertDTO dto) {
+	public ResponseEntity<ReviewDTO> insertReview(@RequestBody ReviewDTO dto) {
 		ReviewDTO reviewDTO = reviewService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(reviewDTO.getId()).toUri();
@@ -54,7 +53,7 @@ public class ReviewResource {
 		return ResponseEntity.ok().body(dto);	
 	}
 	
-	@DeleteMapping(value="/delete/{id}")
+	@DeleteMapping(value="/{id}")
 	public ResponseEntity<ReviewDTO> delete(@PathVariable long id) {
 		reviewService.delete(id);
 		return ResponseEntity.noContent().build();

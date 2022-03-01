@@ -49,7 +49,7 @@ public class MovieResource {
 		return ResponseEntity.ok().body(movieDTO);
 	}
 	
-	@PostMapping
+	@PostMapping(value="/operation")
 	public ResponseEntity<MovieDTO> insertMovie(@Valid @RequestBody MovieDTO dto) {
 		MovieDTO movieDTO = movieService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -57,13 +57,13 @@ public class MovieResource {
 		return ResponseEntity.created(uri).body(movieDTO);	
 	}
 	
-	@PutMapping(value="/{id}")
+	@PutMapping(value="/operation/{id}")
 	public ResponseEntity<MovieDTO> update(@PathVariable long id, @Valid @RequestBody MovieDTO dto) {
 		dto = movieService.update(id, dto);
 		return ResponseEntity.ok().body(dto);	
 	}
 	
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping(value="/operation/{id}")
 	public ResponseEntity<MovieDTO> delete(@PathVariable long id) {
 		movieService.delete(id);
 		return ResponseEntity.noContent().build();

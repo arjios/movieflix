@@ -13,7 +13,6 @@ import com.ios.movieflix.entities.Movie;
 import com.ios.movieflix.entities.Review;
 import com.ios.movieflix.entities.User;
 import com.ios.movieflix.entities.dto.ReviewDTO;
-import com.ios.movieflix.entities.dto.ReviewInsertDTO;
 import com.ios.movieflix.entities.services.exceptions.ResourceNotFoundException;
 import com.ios.movieflix.repositories.MovieRepository;
 import com.ios.movieflix.repositories.ReviewRepository;
@@ -45,7 +44,7 @@ public class ReviewService {
 	}
 	
 	@Transactional
-	public ReviewDTO insert(ReviewInsertDTO dto) {
+	public ReviewDTO insert(ReviewDTO dto) {
 		Review entity = new Review();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
@@ -63,7 +62,7 @@ public class ReviewService {
 		repository.deleteById(id);
 	}
 	
-	private void copyDtoToEntity(ReviewInsertDTO dto, Review entity) {
+	private void copyDtoToEntity(ReviewDTO dto, Review entity) {
 		entity.setText(dto.getText());
 		Optional<Movie> obj = movieRepository.findById(dto.getMovieDTO().getId());
 		Movie movie = obj.orElseThrow(() -> new ResourceNotFoundException("Filme não existe"));

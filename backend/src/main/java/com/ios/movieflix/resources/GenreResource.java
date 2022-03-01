@@ -39,7 +39,7 @@ public class GenreResource {
 		return ResponseEntity.ok().body(genreDTO);
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/operation")
 	public ResponseEntity<GenreDTO> insertGenre(@Valid @RequestBody GenreDTO dto) {
 		GenreDTO genreDTO = genreService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -47,13 +47,13 @@ public class GenreResource {
 		return ResponseEntity.created(uri).body(genreDTO);	
 	}
 	
-	@PutMapping(value="/{id}")
+	@PutMapping(value="/operation/{id}")
 	public ResponseEntity<GenreDTO> update(@PathVariable long id, @Valid @RequestBody GenreDTO dto) {
 		dto = genreService.update(id, dto);
 		return ResponseEntity.ok().body(dto);	
 	}
 	
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping(value="/operation/{id}")
 	public ResponseEntity<GenreDTO> delete(@PathVariable long id) {
 		genreService.delete(id);
 		return ResponseEntity.noContent().build();
