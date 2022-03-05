@@ -1,0 +1,28 @@
+.banner-container {
+    margin-left: 70px;
+}
+
+.banner-title {
+    margin-left: 27px;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 65px;
+    letter-spacing: -0.015em;
+    color: #FFFFFF;
+}
+
+.banner-subtitle {
+    margin-left: 27px;
+    margin-top: 19px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: -0.015em;
+    color: #F2F2F2;
+}
+
+.banner-picture {
+    margin-left: 27px;
+    margin-top: 70px;
+    padding: 0px;
+}

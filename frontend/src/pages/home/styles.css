@@ -1,0 +1,12 @@
+.home-container {
+    display:flex;
+    justify-content: space-around;
+}
+
+.home-banner {
+    margin-top: 81px;
+}
+
+.home-card {
+    margin-top: 40px;
+}
