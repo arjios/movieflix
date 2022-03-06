@@ -3,7 +3,7 @@ import "./styles.css";
 export default function Logincard() {
   return (
     <>
-      <div className="card-container">
+      <div className="base-card card-container">
         <div className="card-title">Login</div>
         <form className="card-form">
           <label>
