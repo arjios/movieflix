@@ -36,8 +36,7 @@ public class MovieResource {
 			@RequestParam(value="page", defaultValue = "0") Integer page,
 			@RequestParam(value="size", defaultValue = "12") Integer size,
 			@RequestParam(value="direction", defaultValue = "ASC") String direction,
-			@RequestParam(value="sort", defaultValue = "title") String title) {
-		
+			@RequestParam(value="sort", defaultValue = "title") String title) {		
 		PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), title);
 		Page<MovieDTO> list = movieService.findMovieByGenreId(pageRequest, id);
 		return ResponseEntity.ok().body(list);

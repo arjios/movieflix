@@ -43,7 +43,7 @@ public class ReviewResource {
 	public ResponseEntity<ReviewDTO> insertReview(@RequestBody ReviewDTO dto) {
 		ReviewDTO reviewDTO = reviewService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(reviewDTO.getId()).toUri();
+				.buildAndExpand(reviewDTO.getMovieId()).toUri();
 		return ResponseEntity.created(uri).body(reviewDTO);	
 	}
 	

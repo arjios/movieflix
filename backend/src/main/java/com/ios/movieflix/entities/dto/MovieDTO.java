@@ -96,9 +96,9 @@ public class MovieDTO implements Serializable {
 		return genreDTO;
 	}
 
-	public void setGenreDTO(GenreDTO genreDTO) {
-		this.genreDTO = genreDTO;
-	}
+//	public void setGenreDTO(GenreDTO genreDTO) {
+//		this.genreDTO = genreDTO;
+//	}
 	
 	public Long getGenreId() {
 		return genreDTO.getId();

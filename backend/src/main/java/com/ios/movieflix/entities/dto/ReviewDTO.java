@@ -7,30 +7,39 @@ import com.ios.movieflix.entities.Review;
 public class ReviewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	
+	private Long movieId;
+	private Long userId;
+	private String email;
 	private String text;
 	
-	private MovieDTO movieDTO;
-	
-	private UserDTO userDTO;
-
 	public ReviewDTO() {
 	}
 
 	public ReviewDTO(Review entity) {
-		this.id = entity.getId();
-		this.text = entity.getText();
-		this.movieDTO = new MovieDTO(entity.getMovie());
-		this.userDTO = new UserDTO(entity.getUser());
+		movieId = entity.getId().getMovie().getId();
+		userId = entity.getId().getUser().getId();
+		email = entity.getId().getUser().getEmail();
+		text = entity.getText();
 	}
 
-	public Long getId() {
-		return id;
+	public Long getMovieId() {
+		return movieId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setMovieId(Long movieId) {
+		this.movieId = movieId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public Long getUserId() {
+		return userId;
 	}
 
 	public String getText() {
@@ -39,17 +48,5 @@ public class ReviewDTO implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public MovieDTO getMovieDTO() {
-		return movieDTO;
-	}
-
-	public Long setMovieId(Long movieId) {
-		return movieId;
-	}
-
-	public UserDTO getUserDTO() {
-		return userDTO;
 	}
 }

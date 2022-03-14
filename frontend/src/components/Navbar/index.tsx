@@ -1,3 +1,4 @@
+import ButtonBar from "components/ButtonBar";
 import { Link } from "react-router-dom";
 
 import "./styles.css";
@@ -8,8 +9,8 @@ export default function Navbar() {
       <Link to="/" className="nav-title">
         Movieflix
       </Link>
-      <label>
-        <input className="nav-button" type="submit" value="Sair" />
+      <label className="nav-label">
+        <ButtonBar />
       </label>
     </nav>
   );

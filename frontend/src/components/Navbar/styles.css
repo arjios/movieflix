@@ -20,7 +20,6 @@
 
 .nav-button {
   align-items: center;
-  font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -32,4 +31,12 @@
   border-radius: 10px;
   color: #000000;
   background-color: #ffc700;
+  width: 98px;
+  height: 30px;
+
+}
+
+.nav-label {
+  display: none;
+  padding-right: 140px;
 }
