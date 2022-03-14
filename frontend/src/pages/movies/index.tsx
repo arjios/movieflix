@@ -1,7 +1,7 @@
 import "./styles.css";
 import Desenho from "../../components/assets/Desenho.png";
 import { useEffect, useState } from "react";
-import makeRequest from "utils/request";
+import { makeRequest } from "utils/request";
 import { MovieResponse } from "types/Movie";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function Movies() {
       size: 12
     }
     makeRequest({ url: '/movies', params })
-    .then(response => setMovieResponse(response.data))
+    .then((response) => setMovieResponse(response.data))
   }, []);
 
   return (
@@ -31,7 +31,7 @@ export default function Movies() {
         </div>
         <div className="movie-info">
           {movieResponse?.content.map(movie => (
-            <Link to="movies/1" key={movie.id}>
+            <Link to="movies" key={movie.id}>
               <Movies />
             </Link>
           ))}
@@ -42,5 +42,4 @@ export default function Movies() {
       </div>
     </div>
   );
-
 }

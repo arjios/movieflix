@@ -1,8 +1,9 @@
 import "./styles.css";
 import { useForm } from "react-hook-form";
+import { makeLogin } from "utils/request";
 
 type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -11,6 +12,7 @@ export default function Logincard() {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
+    makeLogin(data)
   };
 
   return (
@@ -23,7 +25,7 @@ export default function Logincard() {
               className="form-email"
               type="email"
               placeholder="email"
-            {...register("email")}
+            {...register("username")}
             />
           </label>
           <label>
